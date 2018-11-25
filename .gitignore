@@ -1,0 +1,6 @@
+# Build artefacts
+*.bin
+
+# vim stuff
+.*.swp
+*.vim
