@@ -1,5 +1,5 @@
-ASM = nasm
-ASM_FLAGS = -f bin
+AS = nasm
+AS_FLAGS = -f bin
 
 BOOTLOADER_BINARY = bootloader.bin
 BINARIES = $(BOOTLOADER_BINARY)
@@ -12,7 +12,7 @@ $(DISK_IMAGE) : $(BINARIES)
 	cp $(BOOTLOADER_BINARY) $(DISK_IMAGE)
 
 %.bin : src/%.asm
-	$(ASM) $(ASM_FLAGS) -o $@ $<
+	$(AS) $(AS_FLAGS) -o $@ $<
 
 run : all
 	qemu-system-i386 -fda $(DISK_IMAGE)
