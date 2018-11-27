@@ -15,7 +15,7 @@ $(DISK_IMAGE) : $(BINARIES)
 	$(AS) $(AS_FLAGS) -o $@ $<
 
 run : all
-	qemu-system-i386 -fda $(DISK_IMAGE)
+	qemu-system-i386 -drive if=floppy,index=0,file=$(DISK_IMAGE),format=raw
 
 clean :
 	rm -f $(BINARIES) $(DISK_IMAGE)
