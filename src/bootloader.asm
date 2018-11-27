@@ -27,12 +27,12 @@ message db "BabyOS born of MikeOS's tutorial", 0
 print_string:
         mov ah, 0Eh             ; int 10h 'print char' function
 
-.repeat:
+.print_char:
         lodsb                   ; Get character from string
         cmp al, 0
         je .done                ; If character is zero, end of string
         int 10h                 ; Otherwise, print it
-        jmp .repeat
+        jmp .print_char
 
 .done:
         ret
