@@ -1,5 +1,6 @@
 # Build artefacts
 *.bin
+*.lst
 *.flp
 
 # vim stuff
