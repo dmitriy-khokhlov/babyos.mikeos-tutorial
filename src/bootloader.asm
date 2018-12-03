@@ -7,6 +7,16 @@ start:
 
                 mov     ax, CODE_SEGMENT ; Set data segment to where we're loaded
                 mov     ds, ax
+                mov     es, ax
+
+                mov     ah, 2           ; int 13h 'read CHS sector' function
+                mov     al, 1           ; sectors count
+                mov     ch, 0           ; cylinder
+                mov     dh, 0           ; head
+                mov     cl, 2           ; sector
+                mov     bx, SECTOR_SIZE ; es:bx - buffer address
+                ; dl already contains drive number passed from BIOS
+                int     13h             ; read the rest of bootloader
 
                 mov     si, message
                 call    print_string
@@ -21,8 +31,15 @@ STACK_SIZE      equ     4096            ; 4K stack "ought to be enough for anybo
 SIGNATURE       equ     0xAA55          ; Standard PC signature at end of boot sector
 SIGNATURE_SIZE  equ     2
 
-;message         db      `\n`, "BabyOS born of MikeOS's tutorial", 0
-message         db      'ok', 0         ; Can't fit both full message and debug stuff into sector size
+message         db      `\n`, "BabyOS born of MikeOS's tutorial", 0
+;message         db      'ok', 0         ; Can't fit both full message and debug stuff into sector size
+
+
+
+                times   (SECTOR_SIZE - SIGNATURE_SIZE) - ($ - $$) \
+                db      0               ; Pad remainder of boot sector with zeros
+
+                dw      SIGNATURE
 
 
 
@@ -397,10 +414,3 @@ _ByteToHex:
 ; конец _ByteToHex
 
 ; =============== END OF DEBUG STUFF ===============
-
-
-
-                times   (SECTOR_SIZE - SIGNATURE_SIZE) - ($ - $$) \
-                db      0               ; Pad remainder of boot sector with zeros
-
-                dw      SIGNATURE
