@@ -1,32 +1,12 @@
                 BITS    16
 
 start:
-;                ORG     0x7C00
-;                call DEBUG_PrintState
-;                jmp     $
-
-;                mov cx, cs
-
-;                call .get_ip
-;.get_ip:
-;                pop cx
-;                sub cx, 3               ; Adjust IP value on "call .get_ip" instruction size
-
                 mov     ax, CODE_SEGMENT + (SECTOR_SIZE >> 4) ; Set up stack right after code
                 mov     ss, ax
                 mov     sp, STACK_SIZE
 
                 mov     ax, CODE_SEGMENT ; Set data segment to where we're loaded
                 mov     ds, ax
-
-;                mov bh, _FLAGS_BACK_COLOR | _SET_FLAG_FORE_COLOR
-;                mov ax, 0xB800
-;                mov es, ax
-;                mov di, 0
-;                mov ax, cx
-;                call _PrintWordHex
-
-                call DEBUG_PrintState
 
                 mov     si, message
                 call    print_string
