@@ -9,13 +9,13 @@ start:
                 mov     ds, ax
                 mov     es, ax
 
-                mov     ah, 2           ; int 13h 'read CHS sector' function
+                mov     ah, 2           ; int 13h 'read sector, CHS mode' function
                 mov     al, 1           ; sectors count
                 mov     ch, 0           ; cylinder
                 mov     dh, 0           ; head
                 mov     cl, 2           ; sector
                 mov     bx, SECTOR_SIZE ; es:bx - buffer address
-                ; dl already contains drive number passed from BIOS
+                ; dl already contains correct drive number passed from BIOS
                 int     13h             ; read the rest of bootloader
 
                 mov     si, message
