@@ -414,3 +414,8 @@ _ByteToHex:
 ; конец _ByteToHex
 
 ; =============== END OF DEBUG STUFF ===============
+
+
+
+                times   SECTOR_SIZE - ($ - $$) % SECTOR_SIZE \
+                db      0               ; Pad remainder of last sector with zeros
