@@ -32,7 +32,6 @@ SIGNATURE       equ     0xAA55          ; Standard PC signature at end of boot s
 SIGNATURE_SIZE  equ     2
 
 message         db      `\n`, "BabyOS born of MikeOS's tutorial", 0
-;message         db      'ok', 0         ; Can't fit both full message and debug stuff into sector size
 
 
 
