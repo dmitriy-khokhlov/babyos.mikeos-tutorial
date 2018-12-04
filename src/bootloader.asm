@@ -10,7 +10,7 @@ start:
                 mov     es, ax
 
                 mov     ah, 2           ; int 13h 'read sector, CHS mode' function
-                mov     al, 1           ; sectors count
+                mov     al, SECTORS_TO_LOAD
                 mov     ch, 0           ; cylinder
                 mov     dh, 0           ; head
                 mov     cl, 2           ; sector
@@ -424,3 +424,5 @@ LAST_SECTOR_USED_SIZE \
                 times   SECTOR_SIZE - LAST_SECTOR_USED_SIZE \
                 db      0               ; Pad remainder of last sector with zeros
 %endif
+
+SECTORS_TO_LOAD equ     ($ - $$) / SECTOR_SIZE - 1
