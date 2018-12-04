@@ -417,5 +417,10 @@ _ByteToHex:
 
 
 
-                times   SECTOR_SIZE - ($ - $$) % SECTOR_SIZE \
+LAST_SECTOR_USED_SIZE \
+                equ     ($ - $$) % SECTOR_SIZE
+
+%if LAST_SECTOR_USED_SIZE > 0
+                times   SECTOR_SIZE - LAST_SECTOR_USED_SIZE \
                 db      0               ; Pad remainder of last sector with zeros
+%endif
